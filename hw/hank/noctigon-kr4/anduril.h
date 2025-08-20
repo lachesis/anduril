@@ -7,6 +7,10 @@
 #include "hank/noctigon-kr4/hwdef.h"
 #include "hank/anduril.h"
 
+// some simple customizations - disable simple UI and smooth steps
+#undef USE_SIMPLE_UI
+#undef USE_SMOOTH_STEPS
+
 // brightness w/ SST-20 4000K LEDs:
 // 0/1023: 0.35 lm
 // 1/1023: 2.56 lm
@@ -34,7 +38,7 @@
 #define HALFSPEED_LEVEL 12
 #define QUARTERSPEED_LEVEL 4
 
-#define RAMP_SMOOTH_FLOOR 11  // low levels may be unreliable
+#define RAMP_SMOOTH_FLOOR 1  // low levels may be unreliable
 #define RAMP_SMOOTH_CEIL  130
 // 11 30 [50] 70 90 110 [130]
 #define RAMP_DISCRETE_FLOOR 11
@@ -50,7 +54,6 @@
 #define THERM_FASTER_LEVEL 120
 
 #define THERM_CAL_OFFSET 5
-
 
 // the power regulator is a bit slow, so push it harder for a quick response from off
 #define DEFAULT_JUMP_START_LEVEL 21

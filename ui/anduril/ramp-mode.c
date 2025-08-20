@@ -703,7 +703,7 @@ void set_level_and_therm_target(uint8_t level) {
             ? (level - actual_level) : (actual_level - level);
         if (smooth_steps_in_progress
             || (cfg.smooth_steps_style && (diff > 1)))
-            set_level_smooth(level, 4);
+            set_level_smooth(level, 2);  // was 4, higher => slower
         else
     #endif
     set_level(level);
