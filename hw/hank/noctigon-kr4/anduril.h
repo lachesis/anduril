@@ -34,7 +34,8 @@
 #define HALFSPEED_LEVEL 12
 #define QUARTERSPEED_LEVEL 4
 
-#define RAMP_SMOOTH_FLOOR 11  // low levels may be unreliable
+//#define RAMP_SMOOTH_FLOOR 11  // low levels may be unreliable
+#define RAMP_SMOOTH_FLOOR 1  // Lachesis wants low even if unreliable
 #define RAMP_SMOOTH_CEIL  130
 // 11 30 [50] 70 90 110 [130]
 #define RAMP_DISCRETE_FLOOR 11

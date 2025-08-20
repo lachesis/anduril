@@ -223,3 +223,15 @@
 // (but allow disabling this feature per build)
 #define USE_CHANNEL_PER_STROBE
 
+// Lachesis customizations
+#define SIMPLE_UI_ACTIVE 0
+#undef DEFAULT_SMOOTH_STEPS_STYLE
+#define DEFAULT_SMOOTH_STEPS_STYLE 0
+#define DEFAULT_POST_OFF_VOLTAGE_SECONDS 0
+#define RGB_LED_OFF_DEFAULT 0x19  // low, voltage
+#define RGB_LED_LOCKOUT_DEFAULT 0x19  // low, voltage
+
+// Even more aggressive Lachesis customizations .. rip out whole sections I don't use
+//#undef USE_SIMPLE_UI
+//#undef USE_SMOOTH_STEPS
+//#undef USE_POST_OFF_VOLTAGE
