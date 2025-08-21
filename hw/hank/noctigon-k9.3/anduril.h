@@ -64,7 +64,8 @@
 #define HALFSPEED_LEVEL    16
 #define QUARTERSPEED_LEVEL 8
 
-#define RAMP_SMOOTH_FLOOR  10  // level 1 is unreliable (?)
+//#define RAMP_SMOOTH_FLOOR  10  // level 1 is unreliable (?)
+#define RAMP_SMOOTH_FLOOR  1  // I want level 1 even if it is unreliable
 #define RAMP_SMOOTH_CEIL   120
 // 10, 28, 46, [65], 83, 101, 120
 #define RAMP_DISCRETE_FLOOR 10
@@ -107,3 +108,14 @@
 #undef BLINK_AT_RAMP_MIDDLE
 #endif
 
+// Lachesis customization - my K9.3 is White center / Deep red outside so no tint ramping
+#ifdef DEFAULT_TINT_RAMP_STYLE
+#undef DEFAULT_TINT_RAMP_STYLE
+#endif
+#define DEFAULT_TINT_RAMP_STYLE 1 // toggle
+
+// Similarly, I only want CH1 and CH2, no Both/Blend/Auto
+#ifdef CHANNEL_MODES_ENABLED
+#undef CHANNEL_MODES_ENABLED
+#endif
+#define CHANNEL_MODES_ENABLED 0b0000000000000011
