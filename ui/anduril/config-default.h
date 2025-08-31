@@ -59,7 +59,7 @@
 #define RAMP_STYLE 0
 
 // smooth ramp speed: 1, 2, 3, 4, ...  for 1X speed, 1/2, 1/3rd, 1/4th, ...
-#define USE_RAMP_SPEED_CONFIG
+#define USE_RAMP_SPEED_CONFIG 4
 
 // after ramping, how long until the direction resets to "up"?
 #define AUTO_REVERSE_TIME (TICKS_PER_SECOND * 2 / 3)
