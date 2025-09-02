@@ -23,9 +23,9 @@ TTYUSB=$(ls -1 /dev/tty* | grep -i usb | tail -1)
 # TODO: find the relevant hw/*/arch file and use that to get MCU type
 # use $2 if it exists, and use the name of this script maybe
 MCUTYPE="unset"
-[[ -n "$2" ]] && MCUTYPE="$2"
 #MCUTYPE=$(echo "$0" | sed 's/.*flash-\(.*\).sh.*/\1/')
 [[ "$0" =~ flash-(.*).sh ]] && MCUTYPE="${BASH_REMATCH[1]}"
+[[ -n "$2" ]] && MCUTYPE="$2"
 
 # Do the actual flashing
 echo "Flashing $MCUTYPE MCU on port $TTYUSB: $HEX"

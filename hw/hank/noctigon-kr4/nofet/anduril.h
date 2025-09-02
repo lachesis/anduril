@@ -33,7 +33,8 @@
 #undef RAMP_DISCRETE_CEIL
 #undef RAMP_DISCRETE_STEPS
 
-#define RAMP_SMOOTH_FLOOR 11  // low levels may be unreliable
+//#define RAMP_SMOOTH_FLOOR 11  // low levels may be unreliable
+#define RAMP_SMOOTH_FLOOR 1  // Lachesis wants low even if unreliable
 #define RAMP_SMOOTH_CEIL  130
 // 11, 30, [50], 70, 90, 110, 130  (plus [150] on turbo)
 #define RAMP_DISCRETE_FLOOR 11
@@ -45,7 +46,6 @@
 #undef SIMPLE_UI_CEIL
 #define SIMPLE_UI_FLOOR RAMP_DISCRETE_FLOOR
 #define SIMPLE_UI_CEIL RAMP_DISCRETE_CEIL
-
 
 // slow down party strobe; this driver can't pulse for 1ms or less
 // (only needed on no-FET build)
