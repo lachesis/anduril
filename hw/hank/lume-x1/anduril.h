@@ -16,15 +16,14 @@
 //**    RAMP TABLE AND OPERATIONS      **
 //***************************************
 
-#define RAMP_SIZE 160   // Change to 160 as well as table and values below if desired
+#define RAMP_SIZE 170   // Change to 160 as well as table and values below if desired
 
 // PWM1: DAC Data
 // UDR x^4 curves specifically for Lume-X1 (AVR32DD20)
 
-// Lachesis customization ... 15 firefly levels instead of 5
-//   ./bin/level_calc.py 5.2 1 15 7135 1 0.001 0.1 --pwm 100
-//   but then left old levels 1-5 alone ... so :shrug:
-//   and made the very first level use V25 to divide even lower
+// Lachesis customization ... 25 firefly levels instead of 5
+//   ./bin/level_calc.py 5.2 1 20 7135 1 0.001 0.1 --pwm 100
+//   but then some manual tweaks
 // levels 1 to 5:
 //   ./bin/level_calc.py 5.2 1 5 7135 100 0.01 0.1 --pwm 2500
 //   (with the last 2 values divided to fit)
@@ -32,13 +31,14 @@
 //   ./bin/dac-scale.py $( ./bin/level_calc.py 5.3 1 145 7135 17 0.2 3000 --pwm 240000 | grep PWM1 | cut -d : -f 2- )
 // top level for each "gear": 3 5 / 39 50 / 123 150
 #define PWM1_LEVELS \
-         1, 2, 5, 10, 17, 25, 35, 47, 62, 79, \
-         100, 359, 790, 588,1023, \
+         0,1,2,3,4,5,7,9,12,15,19,23,28,35,42,50,60,72,85, \
+         100, 200, 359, 790, 588,1023, \
           17,  21,  24,  29,  34,  39,  46,  54,  62,  71,  82,  94, 107, 122, 138, 157, 177, 199, 223, 250, 279, 311, 346, 385, 426, 471, 520, 573, 630, 692, 758, 830, 907, 990, \
          441, 480, 522, 567, 615, 666, 720, 778, 840, 905, 974, \
           26,  28,  30,  33,  35,  37,  40,  43,  46,  49,  52,  56,  59,  63,  67,  71,  76,  80,  85,  90,  96, 101, 107, 113, 120, 126, 133, 141, 148, 156, 165, 173, 182, 192, 202, 212, 222, 234, 245, 257, 269, 282, 296, 310, 324, 339, 355, 371, 387, 405, 422, 441, 460, 480, 501, 522, 544, 567, 590, 614, 640, 665, 692, 720, 748, 778, 808, 839, 872, 905, 939, 975,1011, \
          429, 445, 461, 478, 495, 513, 531, 550, 570, 589, 610, 631, 653, 675, 698, 721, 745, 770, 795, 821, 848, 875, 903, 932, 962, 992,1023
 #define PWM2_LEVELS \
+         V10, V10, V10, V10, V10, V10, V10, V10, V10, V10, \
          V10, V10, V10, V10, V10, V10, V10, V10, V10, V10, \
          V10, V10, V10, V25, V25, \
          V10, V10, V10, V10, V10, V10, V10, V10, V10, V10, V10, V10, V10, V10, V10, V10, V10, V10, V10, V10, V10, V10, V10, V10, V10, V10, V10, V10, V10, V10, V10, V10, V10, V10, \
@@ -47,24 +47,24 @@
          V25, V25, V25, V25, V25, V25, V25, V25, V25, V25, V25, V25, V25, V25, V25, V25, V25, V25, V25, V25, V25, V25, V25, V25, V25, V25, V25
 
 #define LED_PATH1_PIN_LEVEL_MIN   1
-#define LED_PATH2_PIN_LEVEL_MIN   6+10
-#define LED_PATH3_PIN_LEVEL_MIN  51+10
+#define LED_PATH2_PIN_LEVEL_MIN   (6+20)
+#define LED_PATH3_PIN_LEVEL_MIN  (51+20)
 
-#define HALFSPEED_LEVEL     20+10
-#define QUARTERSPEED_LEVEL  10+10
+#define HALFSPEED_LEVEL     (20+20)
+#define QUARTERSPEED_LEVEL  (10+20)
 
-#define DEFAULT_LEVEL  50+10
-#define MAX_1x7135     49+10
+#define DEFAULT_LEVEL  (50+20)
+#define MAX_1x7135     (49+20)
 
 #define RAMP_SMOOTH_FLOOR    1
-#define RAMP_SMOOTH_CEIL   130+10
+#define RAMP_SMOOTH_CEIL   (130+20)
 
-#define RAMP_DISCRETE_FLOOR   10+10
-#define RAMP_DISCRETE_CEIL   130+10
+#define RAMP_DISCRETE_FLOOR   (10+20)
+#define RAMP_DISCRETE_CEIL   (130+20)
 #define RAMP_DISCRETE_STEPS    7
 
-#define SIMPLE_UI_FLOOR   10+10
-#define SIMPLE_UI_CEIL   110+10      // about ~12W
+#define SIMPLE_UI_FLOOR   (10+20)
+#define SIMPLE_UI_CEIL   (110+20)      // about ~12W
 #define SIMPLE_UI_STEPS    5
 
 // don't blink mid-ramp
@@ -77,8 +77,8 @@
 //***************************************
 
 // stop panicking at 6W (not sure of this numbers yet since it depends on the host..)
-#define THERM_FASTER_LEVEL 100  // about 6W
-#define MIN_THERM_STEPDOWN 60   // similar to single amc7135 in a 3V light
+#define THERM_FASTER_LEVEL 120  // about 6W
+#define MIN_THERM_STEPDOWN 70   // similar to single amc7135 in a 3V light
 
 //***************************************
 //**       AUX LEDs and MISC           **
@@ -94,6 +94,8 @@
 
 // blink numbers on the main LEDs by default (but allow user to change it)
 #define DEFAULT_BLINK_CHANNEL  CM_MAIN
+#define BLINK_BRIGHTNESS 40
+#define BLINK_ONCE_TIME 16  // longer blink, since the boost driver is slow
 
 // use aux red + aux blue for police strobe
 #define USE_POLICE_COLOR_STROBE_MODE
@@ -110,7 +112,7 @@
 #define STROBE_OFF_LEVEL 1  // keep the regulator chips on between pulses
 
 // smoother candle mode with bigger oscillations
-#define CANDLE_AMPLITUDE 30  // default 25
+#define CANDLE_AMPLITUDE 45  // default 25
 
 // avr32dd20 has enough space to smooth out voltage readings
 #define USE_VOLTAGE_LOWPASS
@@ -124,5 +126,5 @@
 #endif
 #define RGB_LED_OFF_DEFAULT 0x09  // off, voltage
 
-// Lachesis customization - DA1K ramp at 1/3 speed to give me more joy with low modes
-#define DEFAULT_RAMP_SPEED 3
+// Lachesis customization - DA1K ramp at 1/2 speed to give me more joy with low modes
+#define DEFAULT_RAMP_SPEED 2
